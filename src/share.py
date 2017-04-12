@@ -19,8 +19,7 @@ def get_price(code):
 def get_all_price(code_list):
    for code in code_list:
        get_price(code)
-code_list = ['sh000001','sz399006','sz399005','sz399001','sh600066',
-        'sz000028', 'sz000798', 'sz002500'	, 'sh603988','sz000571', 'sh600135', 
+code_list = ['sh000001','sz399006','sz399005','sz399001','sz000798','sz000571', 'sh600135', 
              ]
 
 
