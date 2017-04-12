@@ -1,0 +1,780 @@
+    1  cd /home/yujs/work/yujs_bak/work/src/src\ bak/
+    2  ls
+    3  rm qemu-2.8.0-rc2
+    4  sudo rm -rf qemu-2.8.0-rc2
+    5  tar -zxvf qemu-2.8.0-rc2.tar.bz2
+    6  tar -jxvf qemu-2.8.0-rc2.tar.bz2
+    7  sudo tar -jxvf qemu-2.8.0-rc2.tar.bz2
+    8  ls
+    9  cd qemu-2.8.0-rc2
+   10  ./configure --target-list=arm-softmmu --audio-drv-list=
+   11  apt-get install libglib2.0-dev zlib1g-dev 
+   12  sudo apt-get install libglib2.0-dev zlib1g-dev 
+   13  ./configure --target-list=arm-softmmu --audio-drv-list=
+   14  apt-get install autoconf
+   15  sudo apt-get install autoconf
+   16  ./configure --target-list=arm-softmmu --audio-drv-list=
+   17  sudo apt-get install gcc
+   18  gcc
+   19  gcc --verison
+   20  gcc --version
+   21  apt-get install libglib2.0
+   22  sudo apt-get install libglib2.0
+   23  mkdir build
+   24  cd build/
+   25  ../configure 
+   26  dpkg -L arm-none-eabi-gcc
+   27  which arm-none-eabi-gcc
+   28  gedit ~/.bashrc
+   29  ../configure 
+   30  source ~/.bahrc
+   31  gedit ~/.bashrc
+   32  source ~/.bashrc
+   33  ../configure 
+   34  sudo 
+   35  apt-get install libsdl-console-dev
+   36  sudo apt-get install libsdl-console-dev
+   37  source ~/.bashrc
+   38  ../configure 
+   39  sudo apt-get install gcc gcc-c++
+   40  ./configure --target-list=arm-softmmu --audio-drv-list=
+   41  ../configure --target-list=arm-softmmu --audio-drv-list=
+   42  sudo apt-get install zlib1g-dev
+   43  sudo apt-get install libglib2.0-0
+   44  sudo apt-get install libglib2.0-dev 
+   45  ../configure --target-list=arm-softmmu --audio-drv-list=
+   46  cd ..
+   47  ./configure --target-list=arm-softmmu --audio-drv-list=
+   48  echo $PATH
+   49  ./configure --target-list=arm-softmmu --audio-drv-list=
+   50  cd /home/yujs/work/yujs_bak/work/src/qemu_src/qemu-2.0.0
+   51  ./configure --target-list=arm-softmmu --audio-drv-list=
+   52  sudo chmod 777 * -R
+   53  ./configure --target-list=arm-softmmu --audio-drv-list=
+   54  apt-get install zlib1g-dev
+   55  sudo apt-get install zlib1g-dev
+   56  gcc
+   57  gcc --version
+   58  ./configure --target-list=arm-softmmu --audio-drv-list= 
+   59  gcc --version
+   60  which gcc
+   61  source ~/.bashrc
+   62  ./configure --target-list=arm-softmmu --audio-drv-list=
+   63  make
+   64  sudo apt-get install apt-src gawk perl autoconf m4 automake
+   65  1
+   66  2
+   67  3
+   68  4
+   69  5
+   70  6
+   71  sudo apt-get install apt-src gawk perl autoconf m4 automake
+   72  sudo apt-get install libtool libncurses5-dev gettext gperf
+   73  cd ..
+   74  sudo chmod 777 * -R
+   75  sudo apt-get install fcitx-pinyin
+   76  sudo apt-get install libtool libncurses5-dev gettext gperf
+   77  mkdir work
+   78  ls
+   79  sudo scp -r wh@172.20.1.69:/home/wh/yujs_bak /home/yujs/work/
+   80  sudo apt-get install gcc-arm-none-eabi
+   81  sudo apt-get install libtool libncurses5-dev gettext gperf
+   82  sudo rm /var/cache/apt/archives/lock
+   83  sudo rm var/lib/dpkg/lock
+   84  sudo shutdown -r now
+   85  cd /home/yujs/work/src/atomthreads-master/ports/arm/platforms/qemu_integratorcp
+   86  make clean
+   87  make
+   88  make clean
+   89  make
+   90  makeqemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.
+   91  makeqemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+   92  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+   93  make clean
+   94  make
+   95  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+   96  make clean
+   97  make
+   98  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+   99  make clean
+  100  make
+  101  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  102  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf 
+  103  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  104  make clean
+  105  make
+  106  make clean
+  107  make
+  108  make clean
+  109  make
+  110  make clean
+  111  make
+  112  pwd
+  113  make clean
+  114  make
+  115  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  116  make clean
+  117  make
+  118  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  119  make clean
+  120  make
+  121  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  122  make clean
+  123  make
+  124  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  125  make clean
+  126  make
+  127  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  128  qemu-system-arm --version
+  129  make clean
+  130  make
+  131  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  132  make clean
+  133  make 
+  134  make clean
+  135  make
+  136  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf >rest.txt
+  137  make clean
+  138  make 
+  139  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  140  make clean
+  141  make
+  142  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf >rest.txt
+  143  make clean
+  144  make
+  145  make clean
+  146  make
+  147  ls
+  148  make clean
+  149  make
+  150  make clean
+  151  make
+  152  make clean
+  153  make
+  154  make clean
+  155  make
+  156  make clean
+  157  make
+  158  make clean
+  159  make
+  160  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf
+  161  make clean
+  162  make
+  163  make clean
+  164  make
+  165  make clean
+  166  make
+  167  make clean
+  168  make
+  169  make clean
+  170  make
+  171  make clean
+  172  make 
+  173  make clean
+  174  make 
+  175  make clean
+  176  make 
+  177  make clean
+  178  make 
+  179  make clean
+  180  make
+  181  make 
+  182  make clean
+  183  make
+  184  make clean
+  185  make 
+  186  make clean
+  187  make
+  188  make clean
+  189  make
+  190  make clean
+  191  make
+  192  make clean
+  193  make
+  194  make clean
+  195  make 
+  196  make clean
+  197  make
+  198  make clean
+  199  make
+  200  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  201  make clean
+  202  make
+  203  make clean
+  204  make
+  205  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  206  make clean
+  207  make
+  208  make clean
+  209  make
+  210  make clean
+  211  make
+  212  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  213  qemu-system-arm -M integratorcp -semihosting -d guest_errors  -nographic -kernel build/emu_flash_test.elf  
+  214  make clean
+  215  make
+  216  qemu-system-arm -M integratorcp -semihosting -d guest_errors  -nographic -kernel build/emu_flash_test.elf  
+  217  make clean
+  218  make
+  219  qemu-system-arm -M integratorcp -semihosting -d guest_errors  -nographic -kernel build/emu_flash_test.elf  
+  220  make clean
+  221  make
+  222  make clean
+  223  make 
+  224  qemu-system-arm -M integratorcp -semihosting -d guest_errors  -nographic -kernel build/emu_flash_test.elf  
+  225  qemu-system-arm -M integratorcp -semihosting guest_errors  -nographic -kernel build/emu_flash_test.elf  
+  226  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf  
+  227  make clean
+  228  make
+  229  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf  
+  230  ag "Trying to execute code outside RAM or ROM"
+  231  sudo apt-get install python-ase
+  232  sudo apt-get install silversearcher-ag
+  233  cd ..
+  234  cd arm/platforms/qemu_integratorcp/build/
+  235  ls
+  236  cd ..
+  237  gedit ~/.bashrc
+  238  cd /media/yujs/My Passport/Marvell/perforce/jssl_mfg_0610/BEST
+  239  cd /home/yujs/work/src/atomthreads-master/ports/arm/platforms/qemu_integratorcp
+  240  ls
+  241  cd ..
+  242  ls
+  243  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/
+  244  cd ..
+  245  cd ports/arm/platforms/qemu_integratorcp/
+  246  ls
+  247  cd /home/yujs/work/src/atomthreads-master/tests
+  248  cd /home/yujs/work/src/atomthreads-master/ports/arm/platforms/qemu_integratorcp
+  249  make clean
+  250  make 
+  251  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  252  make clean
+  253  make
+  254  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf  
+  255  make clean
+  256  make
+  257  make clean
+  258  make
+  259  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  260  make clean
+  261  make
+  262  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  263  make clean
+  264  make
+  265  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  266  ls
+  267  ls ./build/
+  268  readelf -s emu_flash_test.elf
+  269  readelf -s ./build/emu_flash_test.elf
+  270  readelf -s ./build/emu_flash_test.elf > elf_s.txt
+  271  readelf -r ./build/emu_flash_test.elf > elf_r.txt
+  272  readelf -a ./build/emu_flash_test.elf > elf_a.txt
+  273  make clean
+  274  make
+  275  make clean
+  276  make
+  277  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf 
+  278  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  279  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  280  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  281  make clean
+  282  make
+  283  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  284  make clean
+  285  make
+  286  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  287  make clean
+  288  make
+  289  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  290  sudo apt-get install libtool libncurses5-dev gettext gperf
+  291  sudo apt-get install dejagnu expect tcl autogen guile-2.0-dev
+  292  sudo apt-get install flex flip bison tofrodos texinfo g++ gcc-multilib
+  293  sudo apt-get install libgmp3-dev libmpfr-dev debhelper texlive texlive-extra-utils
+  294  ag "memory_region_init_io"
+  295  gedit include/exec/memory.h
+  296  make
+  297  make clean
+  298  make 
+  299  qemu-system-arm -M integratorcp -semihosting -nographic if
+  300  ls
+  301  cp uart.c uart.img
+  302  ls
+  303  qemu-system-arm -M integratorcp -semihosting -nographic -pflash build/emu_flash_test.elf 
+  304  qemu-system-arm -M integratorcp -semihosting -nographic -pflash -raw build/emu_flash_test.elf 
+  305  qemu-system-arm -M integratorcp -semihosting -nographic -pflash raw build/emu_flash_test.elf 
+  306  cd ..
+  307  cd .
+  308  cd ..
+  309  ag "MemoryRegion" > MemoryRegion.txt
+  310  ls
+  311  geidt ./MemoryRegion
+  312  geidt ./MemoryRegion.txt 
+  313  ls
+  314  gedit ./MemoryRegion.tx
+  315  ag "MemoryRegion"
+  316  cd ..
+  317  cd atomthreads-master_nand/
+  318  make clean
+  319  cd ports/arm/platforms/
+  320  ls
+  321  cd qemu_integratorcp/
+  322  make clean
+  323  make all
+  324  history
+  325  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf
+  326  ls ./build/
+  327  make
+  328  qemu-system-arm -M integratorcp -semihosting -nographic -kernel build/emu_flash_test.elf
+  329  cd /home/yujs/work/src/qemu-1.4.0
+  330  ./configure --target-list=arm-softmmu --audio-drv-list=
+  331  make
+  332  kill eclipse
+  333  ps top
+  334  ps list
+  335  ps all
+  336  cd 
+  337  cd ..
+  338  ls
+  339  cd yujs/work/src/
+  340  ls
+  341  cd qemu-2.8.0-rc2
+  342  make
+  343  history
+  344  ./configure --target-list=arm-softmmu --audio-drv-list=
+  345  make
+  346  sudo make install
+  347  cd /home/yujs/work/yujs_bak/work/samba/qemu-2.8.0-rc2/tests/
+  348  ./qemu-iotests-quick.sh
+  349  cd ..
+  350  ./tests/qemu-iotests-quick.sh 
+  351  cd tests/
+  352  find -name "*nand*.c"
+  353  find -name "*flash*.c"
+  354  find -name "*nor*.c"
+  355  ag "flash"
+  356  gedit find -name m25p80-test.c
+  357  find -name m25p80-test.c
+  358  gedit ./m25p80-test.c
+  359  ag "MemoryRegion dram"
+  360  ag "MemoryRegion flash"
+  361  cd ..
+  362  ag "MemoryRegion flash"
+  363  ag "MemoryRegion dram"
+  364  ag "dram0_mem"
+  365  ./configure --target-list=arm-softmmu --audio-drv-list=
+  366  make
+  367  cd ./tests/
+  368  ls
+  369  ag "flash"
+  370  gedit ./m25p80-test.c
+  371  ps -a | grep "eclipse"
+  372  ps -a
+  373  CD ..
+  374  cd ..
+  375  find -name "*.c" | xargs grep  "writeb"
+  376  make
+  377  sudo make install
+  378  cd ..
+  379  ls
+  380  ps -U yujs
+  381  ps -U yujs | grep eclipse
+  382  kill 13053 32184
+  383  cd /home/yujs/work/tool/eclipse
+  384  ag "workforce"
+  385  ps -help
+  386  ps --help
+  387  ps --help list
+  388  ps -U yujs | grep eclipse
+  389  chrome
+  390  arm-none-eabi-gcc   -T qemu-hosted.ld main.c -o main.elf
+  391  cd /home/yujs/work/src/semihosting
+  392  arm-none-eabi-gcc   -T qemu-hosted.ld main.c -o main.elf
+  393  arm-none-eabi-gcc --version
+  394  chrome
+  395  sudo ps -U yujs | grep eclipse
+  396  kill 15255
+  397  file:///home/yujs/work/yujs_bak/work/samba/qemu-2.8.0-rc2/docs 
+  398  cd /home/yujs/work/yujs_bak/work/samba/qemu-2.8.0-rc2
+  399  ./configure --target-list=arm-softmmu --audio-drv-list=
+  400  make 
+  401  cd ..
+  402  cd /home/yujs/work/src/qemu-2.8.0-rc2
+  403  ./configure --target-list=arm-softmmu --audio-drv-list=
+  404  make
+  405  sudo make install
+  406  cd /home/yujs/work/src/qemu-1.4.0
+  407  ./configure --target-list=arm-softmmu --audio-drv-list=
+  408  make
+  409  mkdir -p bin
+  410  make
+  411  cd ..
+  412  ls
+  413  cd qemu-2.8.0-rc2
+  414  ./configure --target-list=arm-softmmu --audio-drv-list=
+  415  make
+  416  sudo make install
+  417  ./configure --target-list=arm-softmmu --audio-drv-list=
+  418  make
+  419  sudo make install
+  420  ./configure --target-list=arm-softmmu --audio-drv-list=
+  421  make
+  422  sudo make install
+  423  make
+  424  sudo make install
+  425  make
+  426  sudo make install
+  427  make
+  428  sudo make install
+  429  make
+  430  sudo make install
+  431  make
+  432  sudo make install
+  433  cd /home/yujs/work/yujs_bak/work
+  434  sudo chmod 777 * -R
+  435  chrome
+  436  make clean
+  437  make doxygen
+  438  cd /home/yujs/work
+  439  mkdir git
+  440  cd git/
+  441  git clone https://github.com/doxygen/doxygen.git
+  442  sudo apt-get install git
+  443  git clone https://github.com/doxygen/doxygen.git
+  444  ls
+  445  cd doxygen/
+  446  mkdir build
+  447  cd build
+  448  cmake -G "Unix Makefiles" ..
+  449  sudo apt-get install cmake
+  450  cmake -G "Unix Makefiles" ..
+  451  make
+  452  find -name doxygen
+  453  ls ./bin/doxygen 
+  454  which doxygen
+  455  sudo make install doxygen
+  456  which doxygen
+  457  history
+  458  qemu-system-arm -M integratorcp -m 128 -d guest-erros -nographic -kernel build/emu_flash_test.elf
+  459  qemu-system-arm --help
+  460  qemu-system-arm -d help
+  461  qemu-system-arm --d help
+  462  qemu-system-arm -d help
+  463  -d help
+  464  qemu-system-arm -d help
+  465  cd ..
+  466  cd atomthreads-master
+  467  cd ./ports/arm/platforms
+  468  ls
+  469  cd qemu_integratorcp/
+  470  ls ./build/emu_flash_test.elf 
+  471  readelf -r ./build/emu_flash_test.elf 
+  472  readelf -h ./build/emu_flash_test.elf 
+  473  readelf -S ./build/emu_flash_test.elf 
+  474  objdump -d -j .data ./build/emu_flash_test.elf 
+  475  readelf -l ./build/emu_flash_test.elf 
+  476  ps -U yujs
+  477  ps -U yujs | grep eclipse
+  478  kill 14966
+  479  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  480  sudo dpkg -i google-chrome-stable_current_i386.deb
+  481  sudo dpkg -i google-chrome-stable_current_amd64.deb
+  482  sudo mv /usr/bin/google-chrome-stable /usr/bin/chrome
+  483  chrome
+  484  make clean
+  485  make doxygen
+  486  sudo apt-get install doxygen
+  487  sudo apt-get -f install
+  488  make doxygen
+  489  qemu-system-arm -d ?
+  490  history
+  491  qemu-system-arm -M integratorcp -m 128 -d guest-erros -nographic -kernel build/emu_flash_test.elf
+  492  qemu-system-arm -M integratorcp -m 128 -d ?
+  493  qemu-system-arm -M integratorcp -m 128 -d trace:help
+  494  qemu-system-arm -M integratorcp -m 128 -d ?
+  495  cd ~/work/src/
+  496  cd atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/
+  497  make clean
+  498  make 
+  499  cd ~/work/src/
+  500  qemu-system-arm -M integratorcp -m 128 -d guest-erros -nographic -kernel build/emu_flash_test.elf
+  501  qemu-system-arm -M integratorcp -m 128 -d guest_erros -nographic -kernel build/emu_flash_test.elf
+  502  qemu-system-arm -M integratorcp -m 128 -d guest_errors -nographic -kernel build/emu_flash_test.elf
+  503  ls
+  504  cd atomthreads-master_nand
+  505  cd ports/arm/
+  506  ls
+  507  cd platforms/qemu_integratorcp/
+  508  qemu-system-arm -M integratorcp -m 128 -d guest_errors -nographic -kernel build/emu_flash_test.elf
+  509  qemu-system-arm -M integratorcp -m 128 -d int -nographic -kernel build/emu_flash_test.elf
+  510  ag "work"
+  511  ag "yujs"
+  512  make clean
+  513  ps a
+  514  kill 881
+  515  sudo kill 881
+  516  ps -U root -u root -N
+  517  kill 29209
+  518  kill 28358
+  519  kill 28261
+  520  kill 29605
+  521  ps -U root -u root -N
+  522  kill 28266
+  523  kill 23239
+  524  ps -U root -u root -N
+  525  kill 13306 13485 22151 22257 
+  526  ps -U root -u root -N
+  527  kill 13149
+  528  kill 29403 31553 22813
+  529  ps -U root -u root -
+  530  ps -U root -u root -N
+  531  ps -U root -u root -N | grep "eclipse"
+  532  ps -U root -u root -N | grep "java"
+  533  ps -U root -u root -N | grep "eclipse"
+  534  kill 31814 31868
+  535  ps -U root -u root -N | grep "eclipse"
+  536  cd build/
+  537  ls
+  538  read -l emu_flash_test.elf 
+  539  read --segments emu_flash_test.elf 
+  540  read -S emu_flash_test.elf 
+  541  readelf -S emu_flash_test.elf 
+  542  readelf -l emu_flash_test.elf 
+  543  cd ..
+  544  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  545  qemu-system-arm -M integratorcp -m 128 -d int -nographic -kernel build/emu_flash_test.elf >int_errors.txt
+  546  sudo apt-get install htop
+  547  rm /var/lib//dpkg/lock
+  548  sudo apt-get install htop
+  549  ls /var/lib//dpkg/
+  550  ls /var/lib//dpkg/lock 
+  551  rm /var/lib//dpkg/lock 
+  552  sudo rm /var/lib//dpkg/lock 
+  553  sudo apt-get install htop
+  554  sudo dpkg --configure -a
+  555  sudo apt-get install htop
+  556  sudo apt-get install libunity-core-6.0-9
+  557  sudo apt-get install libunity-core
+  558  sudo apt-get -f install
+  559  sudo apt-get install htop
+  560  htop
+  561  history
+  562  qemu-system-arm -M integratorcp -m 128 -d guest_errors -nographic -kernel build/emu_flash_test.elf
+  563  qemu-system-arm -M -d help
+  564  qemu-system-arm -M integratorcp -d help
+  565  qemu-system-arm -M integratorcp -d int -d cpu -m 128 -nographic -kernel build/emu_flash_test.elf 
+  566  qemu-system-arm -M integratorcp -d help
+  567  qemu-system-arm -M integratorcp  -d exec -m 128 -nographic -kernel build/emu_flash_test.elf 
+  568  qemu-system-arm -M integratorcp -d help
+  569  qemu-system-arm -M integratorcp -d int -m 128 -nographic -kernel build/emu_flash_test.elf 
+  570  qemu-system-arm -M integratorcp -d help
+  571  qemu-system-arm -M integratorcp  -d int -m 128 -nographic -kernel build/emu_flash_test.elf  >
+  572  qemu-system-arm -M integratorcp  -d int -m 128 -nographic -kernel build/emu_flash_test.elf  >int.txt
+  573  qemu-system-arm -M integratorcp -d help
+  574  qemu-system-arm -M integratorcp -d exec -m 128 -nographic -kernel build/emu_flash_test.elf 
+  575  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  576  qemu-system-arm -M integratorcp -d help
+  577  qemu-system-arm -M integratorcp -d cpu_reset -m 128 -nographic -kernel build/emu_flash_test.elf 
+  578  make clean
+  579  make 
+  580  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  581  qemu-system-arm -M integratorcp -nographic -kernel ./build/emu_flash_test.elf
+  582  qemu-system-arm -M integratorcp  -d exec -m 128 -nographic -kernel build/emu_flash_test.elf
+  583  ls ./build/
+  584  make clean
+  585  make
+  586  qemu-system-arm -M integratorcp  -d exec -m 128 -nographic -kernel build/emu_flash_test.elf
+  587  qemu-system-arm -M integratorcp -m 128 -nographic -kernel build/emu_flash_test.elf 
+  588  qemu-system-arm -M integratorcp  -d help
+  589  qemu-system-arm -M integratorcp -m 128 -d int -nographic -kernel build/emu_flash_test.elf 
+  590  qemu-system-arm -M integratorcp  -d help
+  591  qemu-system-arm -M integratorcp -m 128 -d int -nographic -kernel build/emu_flash_test.elf 
+  592  qemu-system-arm -M integratorcp  -d help
+  593  qemu-system-arm -M integratorcp -m 128 -d guest_errors -nographic -kernel build/emu_flash_test.elf 
+  594  cd ..
+  595  cd .
+  596  cd ..
+  597  find -name "*.ld"
+  598  gedit ./ports/cortex-m/linker/stm32f103rb
+  599  gedit ./ports/cortex-m/linker/stm32f103rb.ld
+  600  gedit ./ports/cortex-m/linker/lm4f120xl.ld
+  601  gedit ./ports/armv7a/pb-a8/linker.ld
+  602  make clean
+  603  cd ports/arm/platforms/qemu_integratorcp/
+  604  make clean
+  605  make
+  606  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  607  make clean
+  608  make
+  609  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  610  make clean
+  611  make
+  612  qemu-system-arm -M integratorcp -m 128  -nographic -kernel build/emu_flash_test.elf 
+  613  make clean
+  614  make
+  615  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  616  qemu-system-arm -M integratorcp  -d help
+  617  qemu-system-arm -M integratorcp -m 128 -d complete trace -nographic -kernel build/emu_flash_test.elf 
+  618  qemu-system-arm -M integratorcp -m 128 -d trace:help
+  619  make clean
+  620  make
+  621  qemu-system-arm -M integratorcp  -nographic -kernel build/emu_flash_test.elf 
+  622  qemu-system-arm -M integratorcp -d help
+  623  qemu-system-arm -M integratorcp -m 128M -nographic -kernel build/emu_flash_test.elf 
+  624  qemu-system-arm -M integratorcp  -m 128 -nographic -kernel build/emu_flash_test.elf 
+  625  qemu-system-arm -M integratorcp -d help
+  626  qemu-system-arm -M integratorcp -d int -nographic -kernel build/emu_flash_test.elf 
+  627  qemu-system-arm -M integratorcp -d help
+  628  qemu-system-arm -M integratorcp  -d guest_errors -nographic -kernel build/emu_flash_test.elf 
+  629  qemu-system-arm -M integratorcp -d help
+  630  qemu-system-arm -M integratorcp -d trace:help
+  631  qemu-system-arm -M integratorcp -d help
+  632  qemu-system-arm -M integratorcp -d cpu -nographic -kernel build/emu_flash_test.elf 
+  633  cd /home/yujs/work/yujs_bak/work/samba/qemu-2.8.0-rc2
+  634  make
+  635  sudo make install
+  636  ps -U yujs | grep eclipse
+  637  kill 21191
+  638  sudo shutdown -r now
+  639  eclipse
+  640  cd /home/yujs/work/src/atomthreads-master/ports/arm/platforms/qemu_integratorcp
+  641  history
+  642  qemu-system-arm -M integratorcp -d help
+  643  qemu-system-arm -M integratorcp  -d cpu -nographic -kernel build/emu_flash_test.elf
+  644  make clean
+  645  make 
+  646  history
+  647  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  648  make
+  649  make clean
+  650  make
+  651  qemu-system-arm -M integratorcp  -d cpu -nographic -kernel build/emu_flash_test.elf
+  652  cd ~/work/src/
+  653  cd atomthreads-master
+  654  cd ..
+  655  cd atomthreads-master_nand/
+  656  ls
+  657  cd ports/arm/platforms/qemu_integratorcp/
+  658  make clean
+  659  make
+  660  cd ports/arm/platforms/qemu_integratorcp/
+  661  make
+  662  make clean
+  663  make
+  664  make clean
+  665  make
+  666  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  667  make clean
+  668  make
+  669  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  670  make clean
+  671  make 
+  672  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  673  make clean
+  674  make
+  675  make clean
+  676  make
+  677  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  678  make clean
+  679  make
+  680  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  681  make clean
+  682  make
+  683  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  684  make clean
+  685  make
+  686  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  687  make clean
+  688  make
+  689  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  690  make clean
+  691  make
+  692  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  693  make clean
+  694  make
+  695  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  696  make clean
+  697  make
+  698  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  699  make clean
+  700  make
+  701  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  702  make clean
+  703  make
+  704  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  705  make clean
+  706  make
+  707  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  708  make clean
+  709  make
+  710  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  711  make clean
+  712  make
+  713  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  714  sudo smbpasswd -a yujs
+  715  sudo apt-get install fcitx-table-wbpy
+  716  make clean
+  717  make doxygen
+  718  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  719  make clean
+  720  make
+  721  qemu-system-arm -M integratorcp -nographic -kernel build/emu_flash_test.elf
+  722  make doxygen
+  723  ifconfig
+  724  sudo apt-get install samba
+  725  sudo cp  /etc/samba/smb.conf  /etc/samba/smb.conf.bak
+  726  sudo /etc/samba/smb.conf
+  727  ls /etc/sam*
+  728  sudo gedit /etc/samba/smb.conf
+  729  htop
+  730  kill 2290
+  731  cd /home/yujs/work/src/atomthreads-master_nand
+  732  ag "printf_P"
+  733  readelf -a ./ports/arm/platforms/qemu_integratorcp/build/emu_flash_test.elf 
+  734  readelf -a ./ports/arm/platforms/qemu_integratorcp/build/emu_flash_test.elf >elf_readall.txt
+  735  sudo apt dist-upgrade 
+  736  cd ..
+  737  cd atomthreads-master
+  738  make clean
+  739  cd ports/arm/platforms/qemu_integratorcp/
+  740  make clean
+  741  make
+  742  history
+  743  qemu-system-arm -M integratorcp -nographic -kernel build/sem6.elf 
+  744  cd /
+  745  ls
+  746  cd ..
+  747  cd /media/
+  748  sudo mkdir ramaxel
+  749  ls
+  750  cd yujs/cd /yujs
+  751  pwd
+  752  ls
+  753  cd yujs/
+  754  ls
+  755  cd My\ Passport/
+  756  ls
+  757  sudo mkdir ramaxel
+  758  ls
+  759* cd 
+  760  sudo chmod ./ramaxel 777 * -R 
+  761  ls
+  762  cd ramaxel/
+  763  sudo chmod 777 * -R 
+  764  cd ..
+  765  chmod ./ramaxel/ 777 * -R
+  766  pwd
+  767  cd ramaxel/
+  768  sudo chmod 777 * -R 
+  769  cp /home/yujs/work/src/atomthreads-master ./
+  770  sudo cp -r /home/yujs/work/src/atomthreads-master ./
+  771  ls
+  772  sudo cp -r /home/yujs/work/old/ ./
+  773  history
+  774  cd /home/yujs/
+  775  ls
+  776  cd work
+  777  ls
+  778  cd cd doc
+  779  cd doc/
+  780  history >history.txt

@@ -1,0 +1,57 @@
+threadx issues...
+
+1 _tx_event_flags_set too starge !!!!!!??????? why below return directly and dont care about the suspend threadxxx.
+if ((set_option & TX_EVENT_FLAGS_AND_MASK) == TX_AND)
+>>>        /* There is no need to check for any suspended threads since no
+           new bits are set.  */
+>>>>requested_flags 32位的无符号变量,代表请求的事件标志 tx_event_flags_get, is just check whether the bits is set, not inlcude the clear the flag????
+
+
+atomthread issue
+
+1 within sem/queue/mutext if (timeout) but if have timeout > 0;--->timeout==0 is nessary this value will block the current thread
+>>>call atomSched and switch to others thread(block here), once get the flag, tcb_ptr->suspend_wake_status = ATOM_OK start run current and return OK.
+
+2 atomSemPut : if count>4 means more 4 threads is suspend, call put sem just release one thread one time, dont' change the count, it should be 0
+-- sem3 examples : 1/get/put for 4times......
+
+3 suspend_wake_status/semput use this to active, but semget use suspended to suppend,why not same var?????****
+
+
+
+4 atomSemPut line 96 status = ATOM_ERR_TIMER;/////this case also need to call atomCurrentContext???
+
+study whye ATOM_ERR_TIMER call atomCurrentContext but return value is ATOM_ERR_TIMER but tcb_ptr->suspend_wake_status = ATOM_OK already, any confliction
+.... how to use in the test case....????????????
+
+5*** the case of ATOM_ERR_QUEUE never be handled....?????? the qequeue tcb_ptr will be any case.....
+                        if (tcbEnqueuePriority (&event_ptr->suspQ, curr_tcb_ptr) != ATOM_OK)
+                        {
+                            /* Exit critical region */
+                            CRITICAL_END ();
+
+                            /* There was an error putting this thread on the suspend list */
+                            status = ATOM_ERR_QUEUE;
+                        }
+
+
+
+***knowledge,
+1 atomCurrentContext, if in intrrupt context, return NULL, or return curr_tcb.
+2 atomSemPut : after must call atomSemPut atomTimerDelay so that Sleep to give the thread time to manipulate global data, threadx has this ??	
+
+
+3 atomSemDelete just changed the status of thread with tcbDequeueHead as ATOM_ERR_DELETED, then tcbEnqueuePriority all the supsq into the tcbReadyQ.
+
+
+
+
+
+
+
+
+
+
+
+
+

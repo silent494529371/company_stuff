@@ -1,0 +1,7 @@
+qemu arm installation.
+
+sudo apt-get install qemu-system-arm(2.0)
+
+sudo apt-get install gcc-arm-none-eabi (if failed, sudo apt-get update)
+
+arm-none-eabi-gcc (*** actual usage****)

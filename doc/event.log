@@ -1,0 +1,545 @@
+conclusion:
+compared with threadx, atom's kernel schdule have good package, but schduler of threadx is mixed with queue/mutex/event/......
+study how threadx implent the trace function tx_trace_enable.c/TX_THREAD_ENABLE_PERFORMANCE_INFO/tx_thread_preempt_threshold
+
+
+1 timerout check should be in advance before return like the threadx.
+2 continue to port the rest of event get.......
+
+3 study how to use the _tx_thread_preempt_disable besides the priority and intterrupt.
+4 for multi suspend list, it will set it for more than once???? for the semphore, how atom handle the mul-thread is readly, reset the flag and threadx state in while loop?? it is some strage for me the threadx to resume the thread onebyone once the event flag is ready. it is too low efficiency.
+
+5 compared the sem/event/mux in the threadx, it is release mult-thread in with one put.....
+
+
+
+
+
+refer the power to how to use the event.
+
+#define PWR_SCHEMA_EVENT_FLAGS                (PWR_SCHEMA_EVENT_SLEEPING | PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER)
+tx_event_flags_create(&pwr_schema_event_flags, "pwrschema events");
+tx_event_flags_create(&pwr_schema_event_flags, "pwrschema events");
+
+
+
+
+
+txerrcode = tx_event_flags_get(&gSysInitFlag, waitFlag, TX_OR, &gotFlags, TX_WAIT_FOREVER);
+
+UINT  _txe_event_flags_get(TX_EVENT_FLAGS_GROUP *group_ptr, ULONG requested_flags,
+                    UINT get_option, ULONG *actual_flags_ptr, ULONG wait_option)
+{
+
+
+
+1 notify 
+VOID                (*tx_event_flags_group_set_notify)(struct TX_EVENT_FLAGS_GROUP_STRUCT *);//???
+2 tx_event_flags_group_current
+ set / get no related iwth TCB
+
+conclusion: _txe_event_flags_set_notify is not used within any printer code. that is really good new....
+
+3 notify option in when call from _tx_event_flags_set
+
+
+
+
+
+4 how to use....
+
+4.0 create.
+    tx_event_flags_create(&pwr_schema_event_flags, "pwrschema events");
+
+
+#define PWR_SCHEMA_EVENT_SLEEPING                 0x00000001
+#define PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER   0x00000002
+#define PWR_SCHEMA_EVENT_FLAGS                (PWR_SCHEMA_EVENT_SLEEPING | PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER)
+#define PWR_SCHEMA_EVENT_SLEEPING_FLAGS       (PWR_SCHEMA_EVENT_SLEEPING | PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER)
+
+	
+4.1 get
+*****	tx_event_flags_get(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_FLAGS, TX_OR_CLEAR, &set_flags, TX_NO_WAIT);
+*****		tx_event_flags_get(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER, TX_OR_CLEAR, &set_flags, TX_NO_WAIT);
+
+*****	tx_event_flags_get(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_FLAGS, TX_OR, &set_flags, TX_WAIT_FOREVER);
+
+
+tx_event_flags_set(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER, TX_OR);(((pwr_schema_pwr_io_on))))
+
+
+        if (set_flags)
+        {
+            //DPRINTF(PWR_SOFT, ("PWR_SCHEMA: event ...%#x\n",set_flags));
+            if (set_flags & PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER)
+            {
+                // only monitoring timer when in IOwake(light sleep)
+                // when sleeping -- every second we will poll to determine if 'it is time'
+                if (OK == pwr_schema_check_power_off())
+                {
+                    // process actually starts with waking up, then turn around and power off.
+                    pwr_mgr_go_active_nowait(PWRMGR_UID_FULL_WAKE);
+                }
+                max_sleep_ticks = MIN(max_sleep_ticks,SYS_TICK_FREQ);
+            }
+        }
+        tx_thread_sleep(max_sleep_ticks);
+
+    // clear all sleeping flags
+    uint32_t set_flags;
+    tx_event_flags_get(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_FLAGS, TX_OR_CLEAR, &set_flags, TX_NO_WAIT); (((pwr_schema_pwr_on))))
+
+4.2 get
+tx_event_flags_set(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING, TX_OR);(((((pwr_schema_pwr_on2reduce))))
+// tell thread to monitor our 'power off' timer
+tx_event_flags_set(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER, TX_OR);
+if (MyVars.power_off_minutes)
+tx_event_flags_set(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER, TX_OR);
+    // keep our 'turn our power off' timer and if active, start monitoring (((((pwr_schema_pwr_on2reduce))))
+    if (pwr_schema_power_off_tick_target)
+    {
+        tx_event_flags_set(&pwr_schema_event_flags, PWR_SCHEMA_EVENT_SLEEPING_MONITOR_TIMER, TX_OR);
+    }
+
+*********how to use
+interrupt nand
+NAND_interrupt_flags
+
+// Flags for the ISR.
+#define FLASH_DEV_READY_FLAG  0x00000001
+#define PAGE_DONE_FLAG        0x00000002
+#define COMMAND_DONE_FLAG     0x00000004
+#define BAD_BLOCK_DETECT_FLAG 0x00000010
+#define ECC_FAILURE_FLAG      0x00000020
+#define WRITE_DATA_REQ_FLAG   0x00000040
+#define READ_DATA_REQ_FLAG    0x00000080
+#define WRITE_CMD_REQ_FLAG    0x00000100
+#define ECC_CORR_FLAG         0x00000200
+
+wait_for_event->tx_event_flags_get
+    status = tx_event_flags_get (&NAND_interrupt_flags,
+                        requested_flags,
+                        TX_OR_CLEAR,
+                        &cur_NAND_flags, 
+                        timeout);
+    if ((ret_flags = wait_for_event(COMMAND_DONE_FLAG  //wait the cmd within the special timeout value. if exec correctly then release the flag in the ISR.
+
+
+
+nand_controller_isr->NAND_interrupt_flags
+tx_event_flags_set (&NAND_interrupt_flags, flags_to_set, TX_OR);
+
+/* Normal Status Register Masks */
+#define SD_NOR_ERR_INT           ((uint16_t)1 << 15)
+#define SD_NOR_AUTOCMD12_DONE    ((uint16_t)1 << 13)
+#define SD_NOR_SUSPENSE_ON       ((uint16_t)1 << 12)
+#define SD_NOR_LMB_FF_8W_AVAIL   ((uint16_t)1 << 11)
+#define SD_NOR_LMB_FF_8W_FILLED  ((uint16_t)1 << 10)
+#define SD_NOR_READ_WAIT_ON      ((uint16_t)1 << 9)
+#define SD_NOR_CARD_INT          ((uint16_t)1 << 8)
+#define SD_NOR_READ_READY        ((uint16_t)1 << 5)
+#define SD_NOR_WRITE_READY       ((uint16_t)1 << 4)
+#define SD_NOR_DMA_INT           ((uint16_t)1 << 3)
+#define SD_NOR_BLK_GAP_EVT       ((uint16_t)1 << 2)
+#define SD_NOR_XFER_DONE         ((uint16_t)1 << 1)
+#define SD_NOR_CMD_DONE          ((uint16_t)1 << 0)
+
+
+**********how to use.
+3 how to combine the event and hardware interruption????????
+the same file, in the isr set the set flag. in the isr setup the corresponding between the hardware and flags.
+ tx_event_flags_set (&NAND_interrupt_flags, flags_to_set, TX_OR);
+
+**********how to use.
+            tx_retcode = tx_event_flags_get( &g_smjob_mgr_event_flags, 
+                                             SMJOB_MGR_EVENT_FAXOUT_JOB_DONE, 
+                                             TX_OR_CLEAR, 
+                                             &event_flag, 
+                                             TX_WAIT_FOREVER );
+            XASSERT( tx_retcode == TX_SUCCESS, tx_retcode );
+
+issues,
+
+1 why thread add the cli even when create the event/sem?
+2 threadx use the head pointer for eache queque/sem/mutex/event and init it during the system initialization.??
+this pointer is used to memory check/delete the event/trace
+
+
+****atomSemDelete  analyse
+tcbDequeueHead just dequeue the head pointer, but is it is ** point??
+tcbDequeueHead (&sem->suspQ); Check if any threads are suspended
+why check If there's a timeout on this suspension, cancel it????????
+compared with thread x, the deltect the mutex/sem/queue is much simple, why atom need the suspend_timo_cb
+tcbEnqueuePriority put the thread on the ready queue
+
+
+3 _tx_mutex_create head/tail/group pointer is too complecated.
+
+4 _tx_mutex_created_count/event counter seems atom thread doesn't use it.
+
+5 event_flags_id just use to check the pointer is correct to ensure securities. can delete.
+
+
+    /* Define the delayed clearing event flags.  */
+    ULONG               tx_event_flags_group_delayed_clear;
+
+tx_event_flags_group_suspended_count  Determine if the suspension list is being processed by an interrupted
+
+
+
+7 delayed_clear_flags what means???? tx_event_flags_group_delayed_clear??????
+ why use tx_event_flags_group_delayed_clear/if have no set use tx_event_flags_group_current as current flag.
+all the flags if clear when create event.
+
+2 tx_event_flags_group_suspended_count/tx_event_flags_group_delayed_clear is related.
+tx_event_flags_group_suspended_count is not needed because atom use the link list susq to manage all the 
+/* Loop to examine all of the suspended threads. */
+tx_event_flags_group_reset_search: search flag. atomthread is implement by tcbDequeueHead/tcbEnqueuePriority
+
+
+
+
+*****threadx feature. have _tx_thread_system_state to show the state in mutex/queue/event/sem
+1 _tx_thread_system_state/wait_option
+
+#ifndef TX_TIMER_PROCESS_IN_ISR
+    if ((wait_option) && ((_tx_thread_system_state) || (thread_ptr == &_tx_timer_thread)))
+#else
+    if ((wait_option) && (_tx_thread_system_state))
+#endif
+    {
+
+        /* A non-thread is trying to suspend, return appropriate error code.  */
+        return(TX_WAIT_ERROR);
+    }
+
+2 compare the ATOM_TCB and TCB of threadx
+} TX_THREAD;
+_tx_thread_system_suspend(thread_ptr);
+
+3 _tx_thread_preempt_disable(_tx_thread_preempt_disable++;)/tx_thread_suspend_info
+
+4 threadx wake up _tx_thread_system_resume, but atom just use the schedule function.........
+
+
+issue????
+really can happens this case??? have this call in the set/get
+don't consider the tx_event_flags_group_delayed_clear for now, belive this will hot happen.
+            if ((group_ptr -> tx_event_flags_group_suspended_count) && 
+                (group_ptr -> tx_event_flags_group_suspension_list == TX_NULL))
+            {
+
+                /* A previous set operation is still busy, we need to defer the
+                   event clearing until the set operation is complete.  */
+
+                /* Remember the events to clear.  */
+                group_ptr -> tx_event_flags_group_delayed_clear =  
+                                        group_ptr -> tx_event_flags_group_delayed_clear | requested_flags;
+            }
+            else
+            {
+
+                /* Yes, clear the flags that satisfied this request.  */
+                group_ptr -> tx_event_flags_group_current =
+                                        group_ptr -> tx_event_flags_group_current & ~requested_flags;
+            }
+
+
+
+/* Define the current state variable.  When this value is 0, a thread
+   is executing or the system is idle.  Other values indicate that 
+   interrupt or initialization processing is active.  This variable is
+   initialized to TX_INITIALIZE_IN_PROGRESS to indicate initialization is
+   active.  */
+if ((wait_option) && (_tx_thread_system_state))
+wait_option = 0/-1,
+**********no wait, don't wait the result, forever, assert the status.
+really happens this case, _tx_thread_system_state means init/interrupt but interruption should be disable in the thread.
+don't consider this case in atom like threadx?????
+threadx also disable the interrupt once enter _tx_event_flags_get(why _txe_event_flags_get could _tx_thread_system_state=-1
+
+
+wait_option = -1 means suspend the thread whatever the others parameter? no wait return directly???
+>>>>>>>if (current_flags & requested_flags) return 0K if the requested is satified.
+
+选择 TX_NO_WAIT 时,将使函数无条件返回。这种选择仅仅在函数的调
+用发生在非线程(如初始化、定时器、ISR 等)时有效。
+
+TX_SUCCESS
+(0x00)
+事件标志得到成功
+
+TX_NO_EVENTS
+(0x07)
+没有得到指定的事件3
+
+issue 
+TX_NO_EVENTS means ATOM_OK in the get event?????? it is timeout failure in the threadx
+*****TX_NO_EVENTS: for sem, it will return ATOM_OK once the couter>1;
+
+        if (result == TX_NO_EVENTS) //!= TX_SUCCESS)
+            Len = -1;      // timeout return.
+
+
+            if (wait_option)
+            {
+
+                /* Prepare for suspension of this thread.  */
+
+
+            }
+            else//TX_NO_WAIT
+            {
+
+                /* Immediate return, return error completion.  */
+                /* Exit critical region */
+                CRITICAL_END ();
+
+                /* Successful */
+                //status = ATOM_OK;            	//return ATOM_OK or NO_EVENTS???
+                status =  ATOM_NO_EVENTS;
+            }
+
+atomSched (FALSE); 
+
+
+7 need added the tx_thread_suspend_option in the atom.h for event like threadx.************ but below var is used in memory pooll..
+tx_thread_additional_suspend_info/tx_thread_suspend_control_block is useful????
+tx_thread_additional_suspend_info save -> actual_flags_ptr
+tx_thread_suspend_control_block save -> group_ptr
+a) _tx_event_flags_cleanup just be called in the get event function, not use by any others printer code. don't implement it.
+b) tx_thread_suspend_control_block is just used in _tx_event_flags_cleanup, ignore it.
+c) hread_ptr -> tx_thread_additional_suspend_info =  (VOID *) actual_flags_ptr tx_thread_additional_suspend_info is not used. ignore it.
+
+
+8 be care for critical start / end *****
+
+
+
+**************issue threadx 5.1 event set, seems have bug. line 306 should return TX_NO_EVENTS
+**************5.6 is same issue when if (suspended_count == 1). ?????????????????????????????????????????????????????
+
+
+
+
+if (group_ptr -> tx_event_flags_group_suspended_count == 1) 
+
+
+
+1 timerout check should be in advance before return like the threadx.
+2 continue to port the rest of event get.......
+
+3 study how to use the _tx_thread_preempt_disable besides the priority and intterrupt.
+4 for multi suspend list, it will set it for more than once???? for the semphore, how atom handle the mul-thread is readly, reset the flag and threadx state in while loop?? it is some strage for me the threadx to resume the thread onebyone once the event flag is ready. it is too low efficiency.
+atom also reset all the thread meet the event flag.
+
+study how the threadx use the var of tx_event_flags_group_reset_search/tx_event_flags_group_suspension_list
+
+
+sem.c
+why in put, if suspq is not null, it will not increase the sem count, just resume the current threadxxxxxx???????? just no pending, it sem->count++;
+2 atomSemPut : if count>4 means more 4 threads is suspend, call put sem just release one thread one time, dont' change the count, it should be 0
+but event, it could release multi-thread one time??????
+mux/sem how to release mul-thread one time?? find the example. ----- sem3 examples : 1/get/put for 4times......
+
+c
+
+0317
+remove return port from threadx.  ///return(ATOM_OK);
+
+*****issue:
+some confuse on TX_EVENT_FLAGS_AND_MASK in the event function. can return directly? ???? need study how to use.??????????
+
+put thread finished ,how to start the get to continue????--------------fixed.
+>>>>> if (atomCurrentContext()) atomSched (FALSE);--->continue to return (status); then get threadx is ready.........
+
+
+issue...
+set event must call atomSched (FALSE) before return..if need shdule again......
+
+/*  advance timer code before tcb_ptr->suspend_wake_status = ATOM_OK; */ -------- it should be OK but SEEMS NOT neccessary!!!!!! 
+change return to return(ATOM_OK); to use the shedule of atom.
+
+
+
+
+next steps.
+
+study whye ATOM_ERR_TIMER call atomCurrentContext but return value is ATOM_ERR_TIMER but tcb_ptr->suspend_wake_status = ATOM_OK already, any confliction
+.... how to use in the test case....????????????
+
+issue,
+
+get_option/set_option need same ? seems different in spi.
+
+
+tx_event_flags_get(&nand_refresh_flags, NAND_REFRESH_PARTS, TX_OR_CLEAR, &cur_flags,NAND_REFRESH_SCAN_CHECK))
+clear mask: flags_group_current & ~requested_flags;(NAND_REFRESH_PARTS)
+
+TX_EVENT_FLAGS_AND_MASK: ((current_flags & requested_flags) == requested_flags)
+
+
+
+3.20
+UINT  _tx_event_flags_get(TX_EVENT_FLAGS_GROUP *group_ptr, ULONG requested_flags,
+                    UINT get_option, ULONG *actual_flags_ptr, ULONG wait_option)
+
+1) actual_flags_ptr return the actual status by this input para. some time is not usefull, e.g dwApbSsi.c
+2) meet the getion return and clear the current flag in the event,
+3 not meet ,supend the thread.
+
+
+
+3.21
+don't understand the meaning of sys timer, how to user the timer2, uart2.....
+void event_set_tx_flag()
+void settimer2(uint32_t timeout)
+void event_set_rx_flag()
+void settimer1(uint32_t timeout)
+
+
+/* module definitions */
+#define BOARD_BASE_ADDRESS_TIMER_0             0x13000000
+#ifdef UFS_SIM
+#define BOARD_BASE_ADDRESS_TIMER_1             0x17000000
+#endif
+
+********** issue 1
+
+                else
+                {
+                    /* Flag as no timeout registered */
+                	tcb_ptr->suspend_timo_cb = NULL;
+
+                    /* Successful */
+                    status = ATOM_OK;
+                }
+********** issue 2
+//test1_thread_func
+status = atom_event_get(&event1, (RX_COMPLETE_FLAG | RX_COMPLETE_FLAG),A
+
+change the if (status == ATOM_OK) to if (status == ATOM_OK||status == ATOM_NO_EVENTS) 
+
+*************issue3
+wait_option get///forever also use the timeout value??
+change the option same as sem... 0 forever,  others wait timeout.
+
+issue4:************
+wait forever don't set the flag below???????
+                            curr_tcb_ptr->suspended = TRUE;
+
+
+                            /* Remember which event flags we are looking for.  */
+                            curr_tcb_ptr -> suspend_info =  requested_flags;
+
+
+isssue 5 ***************
+status = curr_tcb_ptr->suspend_wake_status; ===0 when exit from get..... should be 7 no event.....
+                            curr_tcb_ptr -> suspend_option =  get_option;
+
+
+**************issue4
+ATOM_ERR_CONTEXT what means in the get event????(maybe atom define like this? check how to use this context)
+
+
+0323
+*******************issue5
+semset,,,what case for the tcbDequeueHead successful but tcbEnqueuePriority failed, return ATOM_ERR_QUEUE how to handle this tcb_ptr out of queue..?????
+
+
+it seems tcbDequeueHead will trigger the handle thread to run.....?????? check ATOM_ERR_QUEUE how to handle in the test code.
+>>>>>handle it ,how about the timeout after putback the suspend queque ptr tcb....
+
+
+study the no_event_case and how to handle the partitial....
+>>>>in threadx ,/get/put all have changes to clear the tx_event_flags_group_current.
+>>>> get option determine the flag is AND/OR satify
+
+
+
+
+
+//////////////////////////////////////important//////////////
+getsem---para -1 not block what aim of this function?????? return ....
+atomSemGet with para -1,
+for the count>0, it has nothing with timout value. just let the thread running and decrease the count value.
+count>0,
+timeout = -1, just return the ATOM_WOULDBLOCK
+timeout>=0, block the thread, put the curr ptr to susp queque. >0: set the timer callback. =0	suspend_timo_cb = NULL;
+
+timer_queue
+study suspend_timo_cb and check why my timer can't trigger the callback i define......
+
+>>>>timer callback related. 2 kind of method to get out one thread to exec.
+semput: tcb_ptr = tcbDequeueHead (&sem->suspQ); 
+atomSemTimerCallback
+        /* Remove this thread from the semaphore's suspend list */
+        (void)tcbDequeueEntry (&timer_data_ptr->sem_ptr->suspQ, timer_data_ptr->tcb_ptr);
+
+        /* Put the thread on the ready queue */
+        (void)tcbEnqueuePriority (&tcbReadyQ, timer_data_ptr->tcb_ptr);
+
+unblock the thread by timerback by this way. timeout>0; timeout==0 just can wait the putfunction to unblock.
+__interrupt_dispatcher->atomTimerTick(atomIntEnter switch thread)->atomTimerCallbacks(register callback)->next_ptr->cb_func (next_ptr->cb_data)
+
+
+0323
+partial events.....
+2 if (wait_option != TX_NO_WAIT)????? else below???TX_NO_EVENTS
+TX_NO_EVENTS==ATOM_WOULDBLOCK??????
+>>>>dont' difffential the partitial flags, no TX_NO_EVENTS in the get flag.
+0326
+_tx_event_flags_set too starge !!!!!!??????? why below return directly and dont care about the suspend threadxxx.
+if ((set_option & TX_EVENT_FLAGS_AND_MASK) == TX_AND)
+
+
+sem7 is sharedata....??
+
+atomSemPut : wake one thread if the count is 0, or it increase the count,
+
+kenel print too much (atomevent.c) asrising the exception handler...
+
+because it is
+ * called by the system tick ISR. This tests that the APIs lockout
+ * interrupts where necessary.
+
+
+0327.
+
+1 
+        /* Calculate the flags present.  */
+        flags_satisfied =  (current_flags & requested_flags);
+        
+        /* Determine if they satisfy the AND request.  */
+        if (flags_satisfied != requested_flags)
+        {
+        
+            /* No, not all the requested flags are present. Clear the flags present variable.  */
+            flags_satisfied =  0;
+        }
+    }
+    else
+    {
+
+        /* OR request is present. Simply or the requested flags and the current flags.  */
+        flags_satisfied =  (current_flags & requested_flags);
+    }.
+
+
+2 status = curr_tcb_ptr->suspend_wake_status
+>>>>easy to figure out, switch out the current thread ,this return status is set by set event or timer callback.
+
+
+
+
+
+
+3 timer back status.
+
+4 how the set event to use the remember get option and request flag....
+
+
+
+
+
+

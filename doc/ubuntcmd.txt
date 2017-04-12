@@ -1,0 +1,99 @@
+cat /etc/group 
+cat /etc/passwd (point the shell of user)
+
+sudo smbpasswd -a lizy
+sudo smbpasswd -x lizy
+sudo useradd lizy
+sudo gpasswd -a yujs ramaxel
+
+//create a user and his home directory...
+mkdir -p /home/zhaoj
+sudo useradd -d /home/zhaoj -s /bin/bash zhaoj
+sudo chown zhaoj:zhaoj /home/zhaoj (define the home direcctory owner)...
+sudo gedit /etc/passwd
+//add user to group qemu
+sudo useradd zhaoj
+sudo passwd zhaoj
+sudo gpasswd -a zhaoj qemu
+
+
+*** need change the bashrc for each user(where change the prompt char)
+gedit ~/.bashrc
+*** change the total PATH /et/bashrc
+
+
+***new user is not in sudoers file
+gedit /etc/sudoers
+
+
+//point the shell for new user(default sh, NOT bash)
+1 chsh
+2 gedit /etc/passwd.
+3 useradd -s /bin/bash zhaoj
+
+
+****cat /etc/group | grep yujs
+adm:x:4:syslog,yujs
+cdrom:x:24:yujs
+sudo:x:27:yujs
+dip:x:30:yujs
+plugdev:x:46:yujs
+lpadmin:x:108:yujs
+yujs:x:1000:
+sambashare:x:124:yujs
+RAMAXEL:x:1001:yujs
+qemu:x:6002:yujs
+
+
+
+
+0409
+sudo adduser lizy (set the password/full name is same as login name)
+sudo smbpasswd -a lizy (set the password same as login name)
+>>>can login from remote side.....
+>>> bash is normal, >> lizy@ramaxel is normal.
+>>>gedit /etc/samba/smb.conf have lizy and zhaoj before ------------->when add for taofj, it seems not need to add taofj in this file.....
+>>> lizy not in the sudoers files>?????? ------>sudo gedit /etc/sudoers xxx ALL=(ALL) ALL like root
+sudo gedit /etc/sudoers
+>>>sudo make clean --->ok
+
+
+
+
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+
+gdb-arm-none-eabi
+qemu-system-arm -M integratorcp -semihosting -s -S -nographic -kernel build/event1.elf
+
+
+how to install 
+gdb-arm-none-eabi(install) arm-none-eabi-gdb(running)
+
+how to run..
+step 1: $ qemu-system-arm -M integratorcp -semihosting -s -S -nographic -kernel build/event3.elf
+step 2: another terminal run enter into arm-none-eabi-gdb
+
+step 2: file /home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/build/event3.elf
+step 3: target remote localhost:1234
+step 4: b test_start
+step 5: s
+
+
+scp -r yujs@172.20.1.118:/home/yujs/work/src/atomthreads-master_nand ./
+sudo chmod 777 * -R
+
+
+gdb document:
+https://qemu.weilnetz.de/doc/qemu-doc.html#gdb_005fusage
+https://sourceware.org/gdb/current/onlinedocs/gdb/Starting.html#Starting
+
+
+
+
+
+
+

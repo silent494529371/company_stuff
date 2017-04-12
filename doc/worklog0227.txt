@@ -1,0 +1,133 @@
+#ifeq ($(TYPE), debug)
+#default to compile for debug mode,make CFLAG=-DDEBUG pass the compile MACRO.
+#ifdef RELEASE
+#	CFLAGS=-g -c -O0 -mcpu=arm926ej-s -ffreestanding -Wall -Werror
+#	AFLAGS=$(CFLAGS) -x assembler-with-cpp
+#else
+#	CFLAGS=-g -c -Os -mcpu=arm926ej-s -ffreestanding -Wall -Werror
+#	AFLAGS=$(CFLAGS) -x assembler-with-cpp
+#endif
+
+
+make CFLAG=-DDEBUG
+ralated compile errors:
+ -I../.. ../../../../kernel/atomqueue.c -o build/atomqueue.o
+arm-none-eabi-gcc  build/emu_flash_test.o build/modules.o build/uart.o build/startup.o build/atomport.o build/tests-main.o build/syscalls.o build/atomport-asm.o build/atomkernel.o build/atomsem.o build/atommutex.o build/atomtimer.o build/atomqueue.o --output build/emu_flash_test.elf -Wl,-Map,build/emu_flash_test.map
+build/modules.o: In function `_mainCRTStartup':
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/modules.c:80: undefined reference to `_start_bss'
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/modules.c:80: undefined reference to `_end_bss'
+build/startup.o: In function `Reset_Handler':
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/startup.s:36: undefined reference to `__irq_stack_top__'
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/startup.s:38: undefined reference to `__fiq_stack_top__'
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/startup.s:40: undefined reference to `__svc_stack_top__'
+build/syscalls.o: In function `_sbrk':
+/home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/../../syscalls.c:218: undefined reference to `heap_top'
+collect2: error: ld returned 1 exit status
+
+
+all: $(BUILD_DIR) $(TEST_ELFS) Makefile
+
+phony_qemu_elfs = $(addsuffix .sim, $(TEST_ELFS))	
+
+
+1 sandstone call the cc to generate the %.o in the buildrules.mk call both cc and ld.
+
+but  arm-none-eabi-gcc doesnot see the link, why marvell has the tool arm-marvell-eabi-gcc/arm-marvell-eabi-ld/arm-marvell-eabi-ar/arm-marvell-eabi-c++
+CC=arm-none-eabi-gcc
+
+
+2 how the sandstone generate the seprate *.elf???
+marvell seems generate by the command below.
+$(STRIP) -S --strip-unneeded -R.comment -o bin/sandstoneStripped.elf bin/SandstoneHardwareTests.axf 
+STRIP = /opt/arm-marvell-eabi-cygwin/bin/arm-marvell-eabi-strip
+
+need to study elf can generate directly or generate from axf????? the foramte between them????
+
+
+3 ALL_OBJECTS need add the FTL_Sim_object, seems test elf not be added.
+
+4 2 : what means? below, FTL_Sim_elf has no *.elf compared with test code, it seems not nessary.
+#$(FTL_Sim_elf): %.elf: %.o $(ALL_OBJECTS)
+
+
+5 compile error.
+ No rule to make target `ramaxcel_ftl_sim.o', needed by `ramaxcel_ftl_sim.elf'.  Stop.
+
+fix the above issue by  change ....********
+#$(TEST_ELFS): %.elf: %.o $(ALL_OBJECTS)
+to ************
+$(FTL_Sim_elf) : $(ALL_OBJECTS)
+
+
+8 define too many uint64/dword/ and some windows includes files is included.????
+
+9 DWORD _stdcall BeMain(LPVOID lpParameter)
+
+10 #CFLAGS=-g -c -mcpu=arm926ej-s -ffreestanding -Wall -Werror
+
+
+11 the atomport.c multi-define (enable PORT_ASM_OBJECTS)
+p/../../atomport.c:129: multiple definition of `archThreadContextInit'
+
+or undefine function in the atomport.asm(close PORT_ASM_OBJECTS)....???????
+
+12 
+ALL_OBJECTS = $(PLATFORM_ASM_OBJECTS)  $(KERNEL_OBJECTS) $(FTL_Sim_OBJECTS) $(PLATFORM_QEMU_OBJECTS)
+add $(PORT_ASM_OBJECTS) multiple definition , remove undefine definition
+
+******fix the issue like this.
+PORT_OBJECTS = $(notdir $(patsubst %.c,%.o,$(wildcard $(PORT_DIR)/*.c)))
+PORT_ASM_OBJECTS = $(notdir $(patsubst %.s,%.o,$(wildcard $(PORT_DIR)/*.c)))
+add this 
+and remove
+#PORT_OBJECTS = atomport.o tests-main.o syscalls.o
+#PORT_ASM_OBJECTS = atomport-asm.o
+
+//// must use port2
+PORT_DIR=../../arm
+PORT_DIR2=../..
+
+i mistaken i have fix the issue above, still faied............
+http://stackoverflow.com/questions/25085490/makefile-multiple-definition-and-undefined-reference-error
+
+13 the error cancel the define for PORT_DIR=../../arm
+Makefile:155: target `atomport.c' doesn't match the target pattern
+Makefile:155: target `syscalls.c' doesn't match the target pattern
+Makefile:155: target `tests-main.c' doesn't match the target pattern
+arm-none-eabi-gcc: error: build/atomport.c: No such file or directory
+arm-none-eabi-gcc: error: build/syscalls.c: No such file or directory
+arm-none-eabi-gcc: error: build/tests-main.c: No such file or directory
+
+fix this issue to change dir to PORT_DIR=../../arm which related with PORT_OBJECTS.......xxxxx
+
+
+14 map had generated even the errors happens.
+
+undefined reference multiple definition
+
+
+0401
+
+how to install 
+gdb-arm-none-eabi(install) arm-none-eabi-gdb(running)
+
+how to run..
+step 1: $ qemu-system-arm -M integratorcp -semihosting -s -S -nographic -kernel build/event3.elf
+step 2: another terminal run enter into arm-none-eabi-gdb
+
+step 2: file /home/yujs/work/src/atomthreads-master_nand/ports/arm/platforms/qemu_integratorcp/build/event3.elf
+step 3: target remote localhost:1234
+step 4: b test_start
+step 5: s
+
+
+arm-none-eabi-gdb remote localhost:1234???
+
+b test_start
+(gdb) b test_start
+
+
+gdb document:
+1 2.13 GDB usage https://qemu.weilnetz.de/doc/qemu-doc.html#gdb_005fusage
+2 http://www.gnu.org/software/gdb/documentation/
+

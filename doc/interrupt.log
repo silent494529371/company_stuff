@@ -1,0 +1,19 @@
+interrupt dm,atomport-private.c
+
+interrupt intergretorcp,module.c
+
+#define INTC_REG(offset)        *(volatile uint32_t *)(DM36X_INTC_BASE + offset)
+
+/**
+ * Table of registered ISR handlers: pre-initialised
+ * with all disabled except the Atomthreads timer tick ISR.
+ */
+static ISR_FUNC isr_handlers[DM36X_INTC_MAX_VEC + 1] =
+{ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  (void *)atomTimerTick, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
