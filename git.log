@@ -1,0 +1,211 @@
+只能进入对应的目录下面(vnpy）
+然后得到如下执行结果
+ git remote -v
+origin  https://github.com/silent494529371/vnpy.git (fetch)
+origin  https://github.com/silent494529371/vnpy.git (push)
+
+配置原仓库的路径：
+ git remote add upstream git@github.com:vnpy/vnpy.git
+ 
+git remote -v
+origin  https://github.com/silent494529371/vnpy.git (fetch)
+origin  https://github.com/silent494529371/vnpy.git (push)
+upstream        git@github.com:vnpy/vnpy.git (fetch)
+upstream        git@github.com:vnpy/vnpy.git (push)
+
+还得继续，
+git checkout master
+git merge upstream/master
+//变化文件太多，limit出错 解决
+git config merge.renameLimit 999999
+git config --unset merge.renameLimit
+git merge upstream/master
+//还是出错，merge is not possible because you have unmerged files.
+//解决办法
+git reset --hard FETCH_HEAD
+将本地的冲突文件冲掉，不仅需要reset到MERGE-HEAD或者HEAD,还需要--hard。没有后面的hard，不会冲掉本地工作区。只会冲掉stage区。
+git merge upstream/master(再执行，成功)
+
+此时，你的本地库已经和原仓库已经完全同步了。但是注意，此时只是你电脑上的本地库和远程的github原仓库同步了，你自己的github仓库还没有同步，
+此时需要使用“git push”命令把你本地的仓库提交到github中
+https://blog.csdn.net/kongying19910218/article/details/50516646
+
+
+
+fast forward能够保证不会强制覆盖别人的代码，确保了多人协同开发。尽量不要使用non fast forward方法提交代码
+https://blog.csdn.net/csfreebird/article/details/7916625
+
+错误
+git log downloadData.py
+fatal: your current branch 'master' does not have any commits yet
+解决
+/c/edisk/quat/git/vnpy-1.8 (master)
+$ git remote -v
+origin  git@github.com:vnpy/vnpy.git (fetch)
+origin  git@github.com:vnpy/vnpy.git (push)
+
+错误(ref https://blog.csdn.net/wankui/article/details/53328369)
+ git checkout master
+error: pathspec 'master' did not match any file(s) known to git.
+这种情况下git branch为空，
+解决办法
+
+
+https://www.cnblogs.com/ToDoToTry/p/4095626.html
+真正理解 git fetch, git pull 以及 FETCH_HEAD
+
+git branch -a
+  remotes/origin/beta
+  remotes/origin/dev
+  
+git branch -r (远程)
+
+ git fetch git@github.com:vnpy/vnpy.git
+From github.com:vnpy/vnpy
+ * branch            HEAD       -> FETCH_HEAD
+ 
+ git fetch git@github.com:vnpy/vnpy.git dev
+From github.com:vnpy/vnpy
+ * branch            dev        -> FETCH_HEAD
+ FETCH_HEAD： 是一个版本链接，记录在本地的一个文件中，指向着目前已经从远程仓库取下来的分支的末端版本。
+ git fetch origin
+同上, 只不过手动指定了remote
+git fetch origin master
+设定当前分支的 FETCH_HEAD' 为远程服务器的master分支`.
+
+{
+git fetch
+这一步其实是执行了两个关键操作:
+- 创建并更新所有远程分支的本地远程分支.
+- 设定当前分支的FETCH_HEAD为远程服务器的master分支
+}
+
+git pull = git fetch + merge to local
+
+
+git push -u origin master
+那么你执行这条命令时所在的分支就已经 tracking to origin/master 了，-u 的用处就在这里
+
+ .git/config
+[core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+        hideDotFiles = dotGitOnly
+[remote "origin"]
+        url = git@github.com:vnpy/vnpy.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "upstream"]
+        url = git@github.com:vnpy/vnpy.git
+        fetch = +refs/heads/*:refs/remotes/upstream/*
+        
+git fetch 到底干了些啥？
+fetch = +refs/heads/*:refs/remotes/origin/*
+它指明了 fetch 动作的来源，在本例中就是 叫做 origin 的那个 remote server 下的所有分支
+
+cat .git/FETCH_HEAD
+4f0a07bddf81ec87c1e00cefcc92678e2b99b6b4                branch 'master' of github.com:vnpy/vnpy
+
+
+cat .gitignore Git中.gitignore文件的使用
+https://blog.csdn.net/qq19414123/article/details/53435591
+
+
+错误，
+git branch --set-upstream-to master origin/master
+fatal: branch 'origin/master' does not exist
+
+解决办法
+git branch --set-upstream-to origin/master （然后可以使用git log了）
+
+ 400  cd C:\edisk\quat\vnpy-master_20180422
+  401  git log --graph --oneline --date-order --decorate --color --all
+  402  git branch -a
+  403  git branch
+  404  git --h
+  405  ssh -T git@github.com
+  406  git branch -a
+  407  git log
+  408  git remote add origin https://github.com/silent494529371/vnpy.git
+  409  git log
+  410  cd ..
+  411  mkdir fork
+  412  cd fork/
+  413  git clone https://github.com/silent494529371/vnpy.git
+
+
+  427  git log
+  428  git init
+  429  git log
+  430  git remote add origin git@github.com:vnpy/vnpy.git
+  431  git branch
+  432  git log
+  433  git remote add origin git@github.com:vnpy/vnpy.git
+  434  git status
+  435  cd ..
+  436  cd fork/
+  437  ls
+  438  git remote -v
+  439  cd vnpy/
+  440  git remote -v
+  441  git remote add upstream git@github.com:vnpy/vnpy.git
+  442  git remote -v
+  443  git fetch upstream
+
+  461  git remote add upstream git@github.com:vnpy/vnpy.git
+  462  git checkout master
+  463  git merge upstream/master
+  464  git config merge.renameLimit 999999
+  465  git config --unset merge.renameLimit
+  466  git merge upstream/master
+  467  git status
+  468  git reset --hard FETCH_HEAD
+  469  git merge upstream/master
+  470  ls
+  471  history
+  472   git push upstream
+  473  git push
+  474  git config --global push.default matching
+  475   git push upstream
+  476  git remote add https://github.com/silent494529371/vnpy.git
+  477  git remote add origin https://github.com/silent494529371/vnpy.git
+  478  git push -u origin master
+  479  git push --help
+  480  git version
+  481  git --help
+  482  which git
+  483  git update-git-for-windows
+  484  mingw-get update
+  485  mingw-get upgrade
+  486  git update
+  487  git update-ref
+  488  git push -u origin master
+  489  cd ..
+  490  ls
+  491  cd ..
+  492  ls
+  493  git clone -b dev git@github.com:vnpy/vnpy.git dev
+  494  git branch -a
+  495  git remove
+  496  git remove --h
+  497  git remote
+  498  git branch
+  499  git branch -a
+  500  cd c:
+  501  cd edisk/quat/git/
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
